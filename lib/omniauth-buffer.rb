@@ -1,1 +1,1 @@
-require 'omniauth/strategies'
+require 'omniauth/strategies/buffer'
