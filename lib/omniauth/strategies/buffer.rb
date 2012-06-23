@@ -1,4 +1,5 @@
 require 'omniauth-oauth2'
+require 'multi_json'
 
 module OmniAuth
   module Strategies
@@ -10,15 +11,22 @@ module OmniAuth
         :token_url => 'https://api.bufferapp.com/1/oauth2/token.json'
       }
       
-      uid do
-        request.params[options.uid_field.to_s]
-      end
+      uid { raw_info['id'] }
 
       info do
-        options.fields.inject({}) do |hash, field|
-          hash[field] = request.params[field]
-          hash
-        end
+        {
+          :avatar => raw_info['avatar']
+        }
+      end
+
+      extra do
+        { :raw_info => raw_info }
+      end
+
+      def raw_info
+        access_token.options[:mode] = :query
+        access_token.options[:param_name] = :access_token
+        @raw_info ||= MultiJson.load(access_token.get('https://api.bufferapp.com/1/profiles.json').body).first
       end
 
     end
