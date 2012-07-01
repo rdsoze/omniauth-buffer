@@ -9,13 +9,13 @@ module OmniAuth
         :site => 'http://api.buffer.com',
         :authorize_url => 'https://bufferapp.com/oauth2/authorize',
         :token_url => 'https://api.bufferapp.com/1/oauth2/token.json'
-      }
+      } 
       
       uid { raw_info['id'] }
 
       info do
         {
-          :avatar => raw_info['avatar']
+          :referral_link => raw_info['referral_link']
         }
       end
 
@@ -26,7 +26,7 @@ module OmniAuth
       def raw_info
         access_token.options[:mode] = :query
         access_token.options[:param_name] = :access_token
-        @raw_info ||= MultiJson.load(access_token.get('https://api.bufferapp.com/1/profiles.json').body).first
+        @raw_info ||= MultiJson.load(access_token.get('https://api.bufferapp.com/1/user.json').body)
       end
 
     end
