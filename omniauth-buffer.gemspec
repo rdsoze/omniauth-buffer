@@ -4,7 +4,7 @@ require File.expand_path('../lib/omniauth-buffer/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.name = "omniauth-buffer"
   gem.version = OmniAuth::Buffer::VERSION
-  gem.authors = ["Raison"]
+  gem.authors = ["Raison Dsouza"]
   gem.email = ["raisondsouza@gmail.com"]
   gem.description = "Omniauth strategy for Buffer"
   gem.summary = "Omniauth strategy for Buffer"
